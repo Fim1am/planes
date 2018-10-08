@@ -16,7 +16,7 @@ public class RTSessionManager : MonoBehaviour
         }
     }
 
-    private GameSparksRTUnity gamesparksRTUnity;
+    private static GameSparksRTUnity gamesparksRTUnity;
 
     public void JoinOrCreateRTSession(RealtimeSessionInfo _info)
     {
@@ -71,16 +71,29 @@ public class RTSessionManager : MonoBehaviour
         {
             case (int)NetworkData.FromServerOpCodes.SHOWMENU:
 
+                Debug.Log("connected to rt");
                 FindObjectOfType<MenuCanvas>().ShowMenuPanel();
 
                 break;
 
             case (int)NetworkData.FromServerOpCodes.STARTGAME:
 
+                RTData planePosData = _packet.Data.GetData(1);
+
+                Vector3 planePos = new Vector3((float)planePosData.GetFloat(1), 0, (float)planePosData.GetFloat(2));
+
+                Debug.Log(planePos);
+
                 break;
 
         }
     }
+
+    public static void SendPacket(int _opCode, GameSparksRT.DeliveryIntent _intent, RTData _data, int[] _targets)
+    {
+        gamesparksRTUnity.SendData(_opCode, _intent, _data, _targets);
+    }
+
 }
 
 public class RealtimeSessionInfo
@@ -135,7 +148,7 @@ public class RealtimePlayer
     public string displayName;
     public string id;
     public int peerId;
-    public bool isOnline, isLocal;
+    public bool isLocal;
 
     public RealtimePlayer(string _displayName, string _id, int _peerId, bool _isLocal)
     {
