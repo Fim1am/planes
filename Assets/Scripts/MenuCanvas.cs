@@ -26,7 +26,7 @@ public class MenuCanvas : MonoBehaviour
 
     public void StartGameButton()
     {
-        NetworkData.StartGameRequest(displayName_InputField.text == string.Empty ? "Player" : displayName_InputField.text, 5);
+        NetworkControl.StartGameRequest(displayName_InputField.text == string.Empty ? "Player" : displayName_InputField.text, 5);
     }
 	
 }

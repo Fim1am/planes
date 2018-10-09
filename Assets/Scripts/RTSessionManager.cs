@@ -69,14 +69,13 @@ public class RTSessionManager : MonoBehaviour
 
         switch (_packet.OpCode)
         {
-            case (int)NetworkData.FromServerOpCodes.SHOWMENU:
+            case (int)NetworkControl.FromServerOpCodes.SHOWMENU:
 
-                Debug.Log("connected to rt");
                 FindObjectOfType<MenuCanvas>().ShowMenuPanel();
 
                 break;
 
-            case (int)NetworkData.FromServerOpCodes.STARTGAME:
+            case (int)NetworkControl.FromServerOpCodes.STARTGAME:
 
                 RTData planePosData = _packet.Data.GetData(1);
 
@@ -94,7 +93,7 @@ public class RTSessionManager : MonoBehaviour
 
                 break;
 
-            case (int)NetworkData.FromServerOpCodes.SERVER_UPDATE:
+            case (int)NetworkControl.FromServerOpCodes.SERVER_UPDATE:
 
                 int planesCount = (int)_packet.Data.GetInt(1);
 

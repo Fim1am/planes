@@ -36,7 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4353181079894512}
-  - component: {fileID: 114889088699982768}
+  - component: {fileID: 114272565046467008}
+  - component: {fileID: 114154887588382002}
   m_Layer: 0
   m_Name: plane
   m_TagString: Player
@@ -113,7 +114,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311616966458406}
   m_Mesh: {fileID: 4300000, guid: 8c6d672f23f7f0e4e9cf2c92ec90537f, type: 3}
---- !u!114 &114889088699982768
+--- !u!114 &114154887588382002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -121,6 +122,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1480292169163238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61181ff7af09951409a995374d8b9aab, type: 3}
+  m_Script: {fileID: 11500000, guid: 93282baac5b58234c9f9faaf4e066b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114272565046467008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480292169163238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfad7638694d594ebe68778f61a2d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

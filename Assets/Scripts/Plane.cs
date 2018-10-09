@@ -10,14 +10,20 @@ public class Plane : MonoBehaviour
 
     public int PlaneId { get; private set; }
 
-	void Start ()
+    private PlaneMotor motor;
+
+	private void OnEnable ()
     {
-		
+        motor = GetComponent<PlaneMotor>(); //TODO
 	}
 
     public void InitPlane(int _planeId, bool _isLocal,string _displayName, int _skinIndex, Vector3 _position, Vector3 _direction)
     {
-        Debug.Log(_displayName);
+        if(_isLocal)
+        {
+            gameObject.AddComponent<PlaneController>();
+        }
+
         RTPlayer = new RealtimePlayer(_displayName, _isLocal);
         PlaneId = _planeId;
         SkinIndex = _skinIndex;
@@ -26,8 +32,11 @@ public class Plane : MonoBehaviour
 
     public void SetTransform(Vector3 _forward, Vector3 _position)
     {
-        transform.position = _position;
-        transform.forward = _forward;
+        if(motor == null)
+            motor = GetComponent<PlaneMotor>();
+
+        motor.TargetPosition = _position;
+         motor.TargetDirection = _forward;
     }
 
 }

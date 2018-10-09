@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
 
     [SerializeField]
+    private GameObject gameCanvas, menuCanvas;
+
+    [SerializeField]
     private Plane plane_Prefab;
 
     private List<Plane> activePlanes = new List<Plane>();
@@ -19,7 +22,15 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlane(int _planeId, bool _isLocal, Vector3 _position, Vector3 _direction, string _displayName, int _skinIndex)
     {
+
         Plane plane = Instantiate(plane_Prefab);
+
+        if(_isLocal)
+        {
+            gameCanvas.SetActive(true);
+
+            menuCanvas.SetActive(false);
+        }
 
         plane.InitPlane(_planeId, _isLocal,_displayName, _skinIndex, _position, _direction);
 
