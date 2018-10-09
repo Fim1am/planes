@@ -44,7 +44,7 @@ public class PlaneController : MonoBehaviour
 	}
 	
 	
-	void FixedUpdate ()
+	void Update ()
 	{
 		if (joystick.Direction.magnitude > 0.01f)
 		{

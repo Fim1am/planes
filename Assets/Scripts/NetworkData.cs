@@ -13,7 +13,8 @@ public static class NetworkData
     public enum FromServerOpCodes
     {
         STARTGAME = 100,
-        SHOWMENU = 101
+        SHOWMENU = 101,
+        SERVER_UPDATE = 103
     }
 
     public static void StartGameRequest(string _displayName, int _skinIndex = 1)

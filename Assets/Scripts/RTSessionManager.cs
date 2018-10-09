@@ -82,7 +82,39 @@ public class RTSessionManager : MonoBehaviour
 
                 Vector3 planePos = new Vector3((float)planePosData.GetFloat(1), 0, (float)planePosData.GetFloat(2));
 
-                Debug.Log(planePos);
+                RTData planeDirData = _packet.Data.GetData(2);
+
+                Vector3 planeDir = new Vector3((float)planeDirData.GetFloat(1), 0, (float)planeDirData.GetFloat(2));
+
+                string displayName = _packet.Data.GetString(3);
+                int skinIndex = (int)_packet.Data.GetInt(4);
+                int planeId = (int)_packet.Data.GetInt(5);
+
+                GameManager.Instance.SpawnPlane(planeId, true, planePos, planeDir, displayName, skinIndex);
+
+                break;
+
+            case (int)NetworkData.FromServerOpCodes.SERVER_UPDATE:
+
+                int planesCount = (int)_packet.Data.GetInt(1);
+
+                for(uint i = 2; i < planesCount + 2; i++)
+                {
+                    RTData planeData = _packet.Data.GetData(i);
+
+                    int id = (int)planeData.GetInt(1);
+
+                    RTData posData = planeData.GetData(2);
+
+                    Vector3 pos = new Vector3((float)posData.GetFloat(1), 0, (float)posData.GetFloat(2));
+
+                    RTData dirData = planeData.GetData(3);
+
+                    Vector3 forward = new Vector3((float)dirData.GetFloat(1), 0, (float)dirData.GetFloat(2));
+
+                    GameManager.Instance.UpdatePlane(id, pos, forward);
+                    
+                }
 
                 break;
 
@@ -102,7 +134,6 @@ public class RealtimeSessionInfo
     private string acccessToken;
     private int portID;
     private string matchID;
-    private List<RealtimePlayer> playerList = new List<RealtimePlayer>();
 
     public RealtimeSessionInfo(GameSparks.Api.Messages.MatchFoundMessage _message)
     {
@@ -110,17 +141,8 @@ public class RealtimeSessionInfo
         acccessToken = _message.AccessToken;
         portID = (int)_message.Port;
         matchID = _message.MatchId;
-
-        foreach (var p in _message.Participants)
-        {
-            playerList.Add(new RealtimePlayer(p.DisplayName, p.Id, (int)p.PeerId));
-        }
     }
 
-    public List<RealtimePlayer> GetPlayerList()
-    {
-        return playerList;
-    }
 
     public string GetMatchID()
     {
@@ -146,23 +168,11 @@ public class RealtimeSessionInfo
 public class RealtimePlayer
 {
     public string displayName;
-    public string id;
-    public int peerId;
     public bool isLocal;
 
-    public RealtimePlayer(string _displayName, string _id, int _peerId, bool _isLocal)
+    public RealtimePlayer(string _displayName, bool _isLocal)
     {
         isLocal = _isLocal;
         displayName = _displayName;
-        id = _id;
-        peerId = _peerId;
-    }
-
-    public RealtimePlayer(string _displayName, string _id, int _peerId)
-    {
-        isLocal = false;
-        displayName = _displayName;
-        id = _id;
-        peerId = _peerId;
     }
 }
